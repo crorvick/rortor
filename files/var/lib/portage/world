@@ -1,6 +1,6 @@
 app-admin/logrotate
 app-admin/sudo
-app-admin/sysklogd
+app-admin/syslog-ng
 app-admin/sysstat
 app-editors/nano
 app-editors/vim

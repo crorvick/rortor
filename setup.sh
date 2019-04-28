@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 setup_hostname() {
     fqdn="$1"
     hostname="${fqdn%%.*}"
@@ -57,6 +59,23 @@ setup_services() {
     rc-update add cronie default
 }
 
+setup_remote_logging() {
+    rc-service sysklogd stop
+    rc-update del sysklogd
+
+    pushd /etc/syslog-ng
+    rm -f syslog-ng.conf
+    wget https://raw.githubusercontent.com/crorvick/rortor/master/files/etc/syslog-ng/syslog-ng.conf
+    mkdir -p cert.d
+    pushd cert.d
+    curl https://papertrailapp.com/tools/papertrail-bundle.tar.gz | sudo tar xzf -
+    popd
+    popd
+
+    rc-service syslog-ng start
+    rc-update add syslog-ng default
+}
+
 setup_google_authenticator() {
     sed -i '/auth.*system-login/a auth\t\trequired\tpam_google_authenticator.so' /etc/pam.d/system-remote-login
     # su - chris
@@ -90,5 +109,6 @@ setup_firewall
 setup_users
 setup_portage
 setup_services
+setup_remote_logging
 setup_google_authenticator
 setup_tor "$2"
