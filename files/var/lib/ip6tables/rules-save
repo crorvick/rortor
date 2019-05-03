@@ -3,7 +3,7 @@
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [0:0]
 -A INPUT -i lo -j ACCEPT
--A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -p tcp -m state --state NEW -m multiport --dports 22,9001,9030 -j ACCEPT
--A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+-A INPUT -p ipv6-icmp -j ACCEPT
 COMMIT

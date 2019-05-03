@@ -12,13 +12,15 @@ setup_hostname() {
 }
 
 setup_firewall() {
-    pushd /var/lib/iptables
-    wget https://raw.githubusercontent.com/crorvick/rortor/master/files/var/lib/iptables/rules-save
-    chmod 600 ./rules-save
-    popd
+    for iptables in iptables ip6tables; do
+        pushd /var/lib/$iptables
+        wget https://raw.githubusercontent.com/crorvick/rortor/master/files/var/lib/$iptables/rules-save
+        chmod 600 ./rules-save
+        popd
 
-    rc-service iptables start
-    rc-update add iptables default
+        rc-service $iptables start
+        rc-update add $iptables default
+    done
 }
 
 setup_users() {
