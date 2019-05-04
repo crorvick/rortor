@@ -57,6 +57,15 @@ EOF
     emerge --depclean
 }
 
+setup_fail2ban() {
+    pushd /etc/fail2ban/jail.d
+    wget https://raw.githubusercontent.com/crorvick/rortor/master/files/etc/fail2ban/jail.d/sshd.conf
+    popd
+
+    rc-service fail2ban start
+    rc-update add fail2ban default
+}
+
 setup_services() {
     rc-update add cronie default
 }

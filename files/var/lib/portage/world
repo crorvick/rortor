@@ -12,7 +12,9 @@ app-portage/layman
 dev-vcs/git
 mail-mta/postfix
 media-gfx/qrencode
+net-analyzer/fail2ban
 net-analyzer/mtr
+net-analyzer/tcpdump
 net-analyzer/traceroute
 net-dns/bind-tools
 net-misc/cfengine
