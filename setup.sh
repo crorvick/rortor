@@ -93,9 +93,12 @@ setup_tor() {
     rmdir tmp
     git checkout -f
     echo "Nickname $nickname" >nickname
+    popd
 
     rc-service tor start
     rc-update add tor default
+
+    sleep 2  # wait for fingerprint to be generated
 
     cat /var/lib/tor/data/fingerprint
     # add fingerprint to family
