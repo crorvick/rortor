@@ -115,6 +115,21 @@ setup_tor() {
     #rc-service tor restart
 }
 
+setup_wireguard() {
+    nickname="$1"
+
+    local private_key=$(wg genkey)
+    local public_key=$(echo $private_key | wg pubkey)
+
+    pushd /etc/wireguard
+    wget https://raw.githubusercontent.com/crorvick/rortor/master/files/etc/wireguard/wg0.conf
+    sed -i "s|{{PRIVATE_KEY}}|$private_key|" wg0.conf
+    chmod 600 wg0.conf
+    popd
+
+    echo "WireGuard public key: $public_key"
+}
+
 fqdn="$1"
 nickname="$2"
 
@@ -126,3 +141,4 @@ setup_services
 setup_remote_logging
 setup_google_authenticator
 setup_tor "$2"
+setup_wireguard "$2"

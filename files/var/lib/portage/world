@@ -14,6 +14,7 @@ mail-mta/postfix
 media-gfx/qrencode
 net-analyzer/fail2ban
 net-analyzer/mtr
+net-analyzer/nmap
 net-analyzer/tcpdump
 net-analyzer/traceroute
 net-dns/bind-tools
@@ -24,6 +25,7 @@ net-misc/netifrc
 net-misc/ntp
 net-misc/openssh
 net-vpn/tor
+net-vpn/wireguard
 sys-auth/google-authenticator
 sys-boot/grub:2
 sys-cluster/slurm
